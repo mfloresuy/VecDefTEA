@@ -1,4 +1,4 @@
-package vecdef.org.uy.vecdefTEA.servicios.impl;
+package vecdef.org.uy.vecdefTEA.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

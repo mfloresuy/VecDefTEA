@@ -1,6 +1,8 @@
 package vecdef.org.uy.vecdefTEA.entidades;
 
-public class BusHistorico {
+import vecdef.org.uy.vecdefTEA.utils.IPosicionable;
+
+public class BusHistorico implements IPosicionable {
 
     private Long idBus;
     private String linea;

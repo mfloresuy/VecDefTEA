@@ -1,6 +1,11 @@
 package vecdef.org.uy.vecdefTEA.repository;
 
 import org.springframework.data.repository.CrudRepository;
+import vecdef.org.uy.vecdefTEA.entidades.ParadaLinea;
 
-public interface ParadaRepository extends CrudRepository<ParadaRepository, Long> {
+import java.util.List;
+
+public interface ParadaRepository extends CrudRepository<ParadaLinea, Long> {
+
+    List<ParadaLinea> findByLineaOrderByOrdinal(final String linea);
 }

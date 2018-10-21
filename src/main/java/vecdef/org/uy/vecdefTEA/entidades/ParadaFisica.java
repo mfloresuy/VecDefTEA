@@ -1,15 +1,16 @@
 package vecdef.org.uy.vecdefTEA.entidades;
 
+import vecdef.org.uy.vecdefTEA.utils.IPosicionable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Parada {
+public class ParadaFisica implements IPosicionable {
 
     @Id
     private Long codigoParada;
-    private Long linea;
-    private Long ordinal;
+
     private String calle;
     private String esquina;
     private double ejeX;
@@ -21,22 +22,6 @@ public class Parada {
 
     public void setCodigoParada(final Long codigoParada) {
         this.codigoParada = codigoParada;
-    }
-
-    public Long getLinea() {
-        return linea;
-    }
-
-    public void setLinea(final Long linea) {
-        this.linea = linea;
-    }
-
-    public Long getOrdinal() {
-        return ordinal;
-    }
-
-    public void setOrdinal(final Long ordinal) {
-        this.ordinal = ordinal;
     }
 
     public String getCalle() {
