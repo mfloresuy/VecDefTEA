@@ -1,13 +1,11 @@
 package vecdef.org.uy.vecdefTEA.entidades;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
 public class BusHistorico {
 
     private Long idBus;
     private String linea;
-    private BigDecimal[] coordenadas;
+    private double ejeX;
+    private double ejeY;
     private String timestamp;
 
     public Long getIdBus() {
@@ -26,19 +24,27 @@ public class BusHistorico {
         this.linea = linea;
     }
 
-    public BigDecimal[] getCoordenadas() {
-        return coordenadas;
-    }
-
-    public void setCoordenadas(BigDecimal[] coordenadas) {
-        this.coordenadas = coordenadas;
-    }
-
     public String getTimestamp() {
         return timestamp;
     }
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public double getEjeX() {
+        return ejeX;
+    }
+
+    public void setEjeX(double ejeX) {
+        this.ejeX = ejeX;
+    }
+
+    public double getEjeY() {
+        return ejeY;
+    }
+
+    public void setEjeY(double ejeY) {
+        this.ejeY = ejeY;
     }
 }
