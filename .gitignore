@@ -1,0 +1,7 @@
+# Idea folder
+.idea/
+target/
+**.iml
+
+# Emacas files
+**~
