@@ -7,7 +7,7 @@ import vecdef.org.uy.vecdefTEA.entidades.BusHistorico;
 import vecdef.org.uy.vecdefTEA.entidades.ParadaFisica;
 import vecdef.org.uy.vecdefTEA.entidades.ParadaLinea;
 import vecdef.org.uy.vecdefTEA.entidades.SegmentoFisico;
-import vecdef.org.uy.vecdefTEA.repository.ParadaRepository;
+import vecdef.org.uy.vecdefTEA.repository.ParadaLineaRepository;
 import vecdef.org.uy.vecdefTEA.repository.SegmentoFisicoRepository;
 import vecdef.org.uy.vecdefTEA.utils.Utils;
 
@@ -19,12 +19,12 @@ import java.util.List;
 public class PosicionService {
 
     @Autowired
-    private ParadaRepository paradaRepository;
+    private ParadaLineaRepository paradaRepository;
     @Autowired
     private SegmentoFisicoRepository segmentoFisicoRepository;
 
     public SegmentoFisico buscarSegmentoFiscoMasCerca(final BusHistorico busHistorico) {
-        final List<ParadaLinea> paradasDeLinea = paradaRepository.findByLineaOrderByOrdinal(busHistorico.getLinea());
+        final List<ParadaLinea> paradasDeLinea = paradaRepository.findByLineaOrderByOrdinal(Long.valueOf(busHistorico.getLinea()));
         if (!CollectionUtils.isEmpty(paradasDeLinea)) {
 
             final ParadaLinea paradaMasCerca = Collections.min(paradasDeLinea, Comparator.comparing(parada -> Utils.distanciaEntrePuntos(parada.getParadaFisica(), busHistorico)));

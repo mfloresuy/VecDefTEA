@@ -33,7 +33,9 @@ public final class SegmentoFisicoBuilder {
     }
 
     public SegmentoFisico build() {
-        SegmentoFisico segmentoFisico = new SegmentoFisico(paradaInicial, paradaFinal);
+        final SegmentoFisico segmentoFisico = new SegmentoFisico();
+        segmentoFisico.setParadaInicial(paradaInicial);
+        segmentoFisico.setParadaFinal(paradaFinal);
         segmentoFisico.setId(id);
         return segmentoFisico;
     }

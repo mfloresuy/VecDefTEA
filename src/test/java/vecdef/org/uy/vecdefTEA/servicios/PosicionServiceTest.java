@@ -16,7 +16,7 @@ import vecdef.org.uy.vecdefTEA.entidades.builders.BusHistoricoBuilder;
 import vecdef.org.uy.vecdefTEA.entidades.builders.ParadaFisicaBuilder;
 import vecdef.org.uy.vecdefTEA.entidades.builders.ParadaLineaBuilder;
 import vecdef.org.uy.vecdefTEA.entidades.builders.SegmentoFisicoBuilder;
-import vecdef.org.uy.vecdefTEA.repository.ParadaRepository;
+import vecdef.org.uy.vecdefTEA.repository.ParadaLineaRepository;
 import vecdef.org.uy.vecdefTEA.repository.SegmentoFisicoRepository;
 
 import java.util.Arrays;
@@ -30,7 +30,7 @@ public class PosicionServiceTest {
     private PosicionService posicionService = new PosicionService();
 
     @Mock
-    private ParadaRepository paradaRepository;
+    private ParadaLineaRepository paradaRepository;
 
     @Spy
     private SegmentoFisicoRepository segmentoFisicoRepository;
@@ -86,7 +86,7 @@ public class PosicionServiceTest {
                 .build();
 
         final BusHistorico busHistorico = BusHistoricoBuilder.aBusHistorico().withEjeX(0.75).withEjeY(0.8).withLinea("1234").build();
-        Mockito.when(paradaRepository.findByLineaOrderByOrdinal(Mockito.eq("1234"))).thenReturn(Arrays.asList(parada1, parada2, parada3, parada4));
+        Mockito.when(paradaRepository.findByLineaOrderByOrdinal(Mockito.eq(1234L))).thenReturn(Arrays.asList(parada1, parada2, parada3, parada4));
 
 
         Mockito.doReturn(Optional.of(segmentoFisico)).when(segmentoFisicoRepository).findById(idSegmento);
@@ -150,7 +150,7 @@ public class PosicionServiceTest {
                 .build();
 
         final BusHistorico busHistorico = BusHistoricoBuilder.aBusHistorico().withEjeX(0.25).withEjeY(0).withLinea("1234").build();
-        Mockito.when(paradaRepository.findByLineaOrderByOrdinal(Mockito.eq("1234"))).thenReturn(paradaLineas);
+        Mockito.when(paradaRepository.findByLineaOrderByOrdinal(Mockito.eq(1234L))).thenReturn(paradaLineas);
 
 
         Mockito.doReturn(Optional.of(segmentoFisico)).when(segmentoFisicoRepository).findById(idSegmento);
@@ -173,7 +173,7 @@ public class PosicionServiceTest {
                 .build();
 
         final BusHistorico busHistorico = BusHistoricoBuilder.aBusHistorico().withEjeX(2.25).withEjeY(0).withLinea("1234").build();
-        Mockito.when(paradaRepository.findByLineaOrderByOrdinal(Mockito.eq("1234"))).thenReturn(paradaLineas);
+        Mockito.when(paradaRepository.findByLineaOrderByOrdinal(Mockito.eq(1234L))).thenReturn(paradaLineas);
 
         Mockito.doReturn(Optional.of(segmentoFisico)).when(segmentoFisicoRepository).findById(idSegmento);
 
@@ -194,7 +194,7 @@ public class PosicionServiceTest {
                 .build();
 
         final BusHistorico busHistorico = BusHistoricoBuilder.aBusHistorico().withEjeX(3.25).withEjeY(1).withLinea("1234").build();
-        Mockito.when(paradaRepository.findByLineaOrderByOrdinal(Mockito.eq("1234"))).thenReturn(paradaLineas);
+        Mockito.when(paradaRepository.findByLineaOrderByOrdinal(Mockito.eq(1234L))).thenReturn(paradaLineas);
 
         Mockito.doReturn(Optional.of(segmentoFisico)).when(segmentoFisicoRepository).findById(idSegmento);
 

@@ -7,22 +7,14 @@ import javax.persistence.ManyToOne;
 @Entity
 public class SegmentoFisico {
 
-    //SI concatenamos el id de la parada inicial y el de la parada final lo encontramos de toque
-    //tipo paradaInicial#paradaFinal
     @Id
-    private String id;
+    private String idSegmento;
 
     @ManyToOne
     private ParadaFisica paradaInicial;
 
     @ManyToOne
     private ParadaFisica paradaFinal;
-
-    public SegmentoFisico(final ParadaFisica paradaInicial, final ParadaFisica paradaFinal) {
-        this.id = construirID(paradaInicial, paradaFinal);
-        this.paradaInicial = paradaInicial;
-        this.paradaFinal = paradaFinal;
-    }
 
     public ParadaFisica getParadaInicial() {
         return paradaInicial;
@@ -41,14 +33,15 @@ public class SegmentoFisico {
     }
 
     public String getId() {
-        return id;
+        return idSegmento;
     }
 
     public void setId(final String id) {
-        this.id = id;
+        this.idSegmento = id;
     }
 
     public static String construirID(final ParadaFisica paradaInicial, final ParadaFisica paradaFinal) {
         return paradaInicial.getCodigoParada().toString() + "#" + paradaFinal.getCodigoParada().toString();
     }
+
 }

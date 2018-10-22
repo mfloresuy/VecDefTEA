@@ -1,14 +1,20 @@
 package vecdef.org.uy.vecdefTEA.entidades;
 
+import vecdef.org.uy.vecdefTEA.entidades.keys.ParadaLineaKey;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 
 @Entity
+@IdClass(ParadaLineaKey.class)
 public class ParadaLinea {
 
     @Id
     private Long linea;
+
+    @Id
     private Long ordinal;
 
     @ManyToOne
@@ -46,4 +52,5 @@ public class ParadaLinea {
                 ", paradaFisica=" + paradaFisica +
                 '}';
     }
+
 }

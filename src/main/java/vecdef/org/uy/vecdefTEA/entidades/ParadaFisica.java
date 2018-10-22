@@ -10,6 +10,7 @@ public class ParadaFisica implements IPosicionable {
 
     @Id
     private Long codigoParada;
+
     private String calle;
     private String esquina;
     private double ejeX;
