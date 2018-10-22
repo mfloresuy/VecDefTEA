@@ -1,4 +1,4 @@
-package vecdef.org.uy.vecdefTEA;
+package vecdef.org.uy.vecdefTEA.config;
 
 
 import org.glassfish.jersey.server.ResourceConfig;

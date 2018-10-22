@@ -10,7 +10,6 @@ public class ParadaFisica implements IPosicionable {
 
     @Id
     private Long codigoParada;
-
     private String calle;
     private String esquina;
     private double ejeX;
@@ -55,7 +54,16 @@ public class ParadaFisica implements IPosicionable {
     public void setEjeY(final double ejeY) {
         this.ejeY = ejeY;
     }
-    
-}
 
-//{"codigoParada":"4836","linea":"217","ordinal":"1","calle":"AV DRA MA L SALDUN DE RODRIGUEZ","esquina":"AV BOLIVIA","long":"-56.0833009323971","lat":"-34.8818168390103"}
+    @Override
+    public String toString() {
+        return "ParadaFisica{" +
+                "codigoParada=" + codigoParada +
+                ", calle='" + calle + '\'' +
+                ", esquina='" + esquina + '\'' +
+                ", ejeX=" + ejeX +
+                ", ejeY=" + ejeY +
+                '}';
+    }
+
+}
