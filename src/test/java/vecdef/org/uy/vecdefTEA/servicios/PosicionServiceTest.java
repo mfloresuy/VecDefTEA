@@ -20,6 +20,7 @@ import vecdef.org.uy.vecdefTEA.repository.ParadaRepository;
 import vecdef.org.uy.vecdefTEA.repository.SegmentoFisicoRepository;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -94,5 +95,111 @@ public class PosicionServiceTest {
         Mockito.verify(segmentoFisicoRepository).findById(idSegmento);
         Assert.assertSame(segmento, segmentoFisico);
 
+    }
+
+
+    private List<ParadaLinea> crearParadasEnLinea() {
+        final ParadaLinea parada1 = ParadaLineaBuilder.aParadaLinea()
+                .withParadaFisica(ParadaFisicaBuilder.aParadaFisica()
+                        .withEjeX(0.0)
+                        .withEjeY(0.0)
+                        .withCodigoParada(1L)
+                        .build())
+                .withOrdinal(1L)
+                .build();
+
+        final ParadaLinea parada2 = ParadaLineaBuilder.aParadaLinea()
+                .withParadaFisica(ParadaFisicaBuilder.aParadaFisica()
+                        .withEjeX(1)
+                        .withEjeY(0)
+                        .withCodigoParada(2L)
+                        .build())
+                .withOrdinal(2L)
+                .build();
+
+        final ParadaLinea parada3 = ParadaLineaBuilder.aParadaLinea()
+                .withParadaFisica(ParadaFisicaBuilder.aParadaFisica()
+                        .withEjeX(2)
+                        .withEjeY(0)
+                        .withCodigoParada(3L)
+                        .build())
+                .withOrdinal(3L)
+                .build();
+
+        final ParadaLinea parada4 = ParadaLineaBuilder.aParadaLinea()
+                .withParadaFisica(ParadaFisicaBuilder.aParadaFisica()
+                        .withEjeX(3)
+                        .withEjeY(0)
+                        .withCodigoParada(4L)
+                        .build())
+                .withOrdinal(4L)
+                .build();
+        return Arrays.asList(parada1, parada2, parada3, parada4);
+    }
+
+
+    @Test
+    public void buscarSegmentoFiscoMasCerca4EnLineaPrimero() {
+
+        final List<ParadaLinea> paradaLineas = crearParadasEnLinea();
+
+        final String idSegmento = "1#2";
+        final SegmentoFisico segmentoFisico = SegmentoFisicoBuilder.aSegmentoFisico()
+                .withParadaInicial(paradaLineas.get(0).getParadaFisica())
+                .withParadaFinal(paradaLineas.get(1).getParadaFisica())
+                .build();
+
+        final BusHistorico busHistorico = BusHistoricoBuilder.aBusHistorico().withEjeX(0.25).withEjeY(0).withLinea("1234").build();
+        Mockito.when(paradaRepository.findByLineaOrderByOrdinal(Mockito.eq("1234"))).thenReturn(paradaLineas);
+
+
+        Mockito.doReturn(Optional.of(segmentoFisico)).when(segmentoFisicoRepository).findById(idSegmento);
+
+        final SegmentoFisico segmento = posicionService.buscarSegmentoFiscoMasCerca(busHistorico);
+        Mockito.verify(segmentoFisicoRepository).findById(idSegmento);
+        Assert.assertSame(segmento, segmentoFisico);
+
+    }
+
+    @Test
+    public void buscarSegmentoFiscoMasCerca4EnLineaTercero() {
+
+        final List<ParadaLinea> paradaLineas = crearParadasEnLinea();
+
+        final String idSegmento = "3#4";
+        final SegmentoFisico segmentoFisico = SegmentoFisicoBuilder.aSegmentoFisico()
+                .withParadaInicial(paradaLineas.get(0).getParadaFisica())
+                .withParadaFinal(paradaLineas.get(1).getParadaFisica())
+                .build();
+
+        final BusHistorico busHistorico = BusHistoricoBuilder.aBusHistorico().withEjeX(2.25).withEjeY(0).withLinea("1234").build();
+        Mockito.when(paradaRepository.findByLineaOrderByOrdinal(Mockito.eq("1234"))).thenReturn(paradaLineas);
+
+        Mockito.doReturn(Optional.of(segmentoFisico)).when(segmentoFisicoRepository).findById(idSegmento);
+
+        final SegmentoFisico segmento = posicionService.buscarSegmentoFiscoMasCerca(busHistorico);
+        Mockito.verify(segmentoFisicoRepository).findById(idSegmento);
+        Assert.assertSame(segmento, segmentoFisico);
+    }
+
+    @Test
+    public void buscarSegmentoFiscoMasCerca4EnLineaSinSiguiente() {
+
+        final List<ParadaLinea> paradaLineas = crearParadasEnLinea();
+
+        final String idSegmento = "3#4";
+        final SegmentoFisico segmentoFisico = SegmentoFisicoBuilder.aSegmentoFisico()
+                .withParadaInicial(paradaLineas.get(0).getParadaFisica())
+                .withParadaFinal(paradaLineas.get(1).getParadaFisica())
+                .build();
+
+        final BusHistorico busHistorico = BusHistoricoBuilder.aBusHistorico().withEjeX(3.25).withEjeY(1).withLinea("1234").build();
+        Mockito.when(paradaRepository.findByLineaOrderByOrdinal(Mockito.eq("1234"))).thenReturn(paradaLineas);
+
+        Mockito.doReturn(Optional.of(segmentoFisico)).when(segmentoFisicoRepository).findById(idSegmento);
+
+        final SegmentoFisico segmento = posicionService.buscarSegmentoFiscoMasCerca(busHistorico);
+        Mockito.verify(segmentoFisicoRepository).findById(idSegmento);
+        Assert.assertSame(segmento, segmentoFisico);
     }
 }

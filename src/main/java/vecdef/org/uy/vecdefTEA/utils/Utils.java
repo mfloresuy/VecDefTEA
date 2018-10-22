@@ -30,12 +30,43 @@ public class Utils {
     }
 
     private static double distanciaEntreSegmentoYPunto(double[] seg1, double[] seg2, double[] pto) {
-        return Math.abs((seg2[1] - seg1[1])*pto[0] - (seg2[0] - seg1[0])*pto[1] + seg2[0]*seg1[1] - seg2[1]*seg1[0]) /
-                Math.sqrt(Math.pow(seg2[0] - seg1[0], 2) + Math.pow(seg2[1] - seg1[1], 2));
+        return distanciaEntrePuntos(pto, obtenerPuntMasCerca(seg1, seg2, pto));
     }
 
     private static double[] obtenerPunto(final IPosicionable posicionable) {
-        return new double[]{posicionable.getEjeX(), posicionable.getEjeX()};
+        return new double[]{posicionable.getEjeX(), posicionable.getEjeY()};
+    }
+
+    private static double[] obtenerPuntMasCerca(double[] seg1, double[] seg2, double[] pto) {
+
+        final double sx1 = seg1[0];
+        final double sy1 = seg1[1];
+
+        final double sx2 = seg2[0];
+        final double sy2 = seg2[1];
+
+        final double px = pto[0];
+        final double py = pto[1];
+
+        double xDelta = sx2 - sx1;
+        double yDelta = sy2 - sy1;
+
+        if ((xDelta == 0) && (yDelta == 0)) {
+            throw new IllegalArgumentException("El final del segmento es igual al inicio");
+        }
+
+        double u = ((px - sx1) * xDelta + (py - sy1) * yDelta) / (xDelta * xDelta + yDelta * yDelta);
+
+        final double[] puntoMasCerca;
+        if (u < 0) {
+            puntoMasCerca = new double[]{sx1, sy1};
+        } else if (u > 1) {
+            puntoMasCerca = new double[]{sx2, sy2};
+        } else {
+            puntoMasCerca = new double[]{sx1 + u * xDelta, sy1 + u * yDelta};
+        }
+
+        return puntoMasCerca;
     }
 
 

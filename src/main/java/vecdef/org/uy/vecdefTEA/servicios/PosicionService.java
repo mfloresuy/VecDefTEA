@@ -36,8 +36,8 @@ public class PosicionService {
             final ParadaFisica paradaAnterior = paradasDeLinea.stream().filter(siguiente -> siguiente.getOrdinal() < paradaMasCerca.getOrdinal())
                     .max(Comparator.comparing(ParadaLinea::getOrdinal)).map(ParadaLinea::getParadaFisica).orElse(null);
 
-            ParadaFisica inicioSegmento = null;
-            ParadaFisica finSegmento = null;
+            final ParadaFisica inicioSegmento;
+            final ParadaFisica finSegmento;
 
             if ((paradaSiguiente != null) && (paradaAnterior != null)) {
                 final double distanciaSegmentoAnterior = Utils.distanciaEntreSegmentoYPunto(paradaAnterior, paradaMasCerca.getParadaFisica(), busHistorico);
@@ -56,6 +56,9 @@ public class PosicionService {
             } else if (paradaSiguiente != null) {
                 inicioSegmento = paradaMasCerca.getParadaFisica();
                 finSegmento = paradaSiguiente;
+            } else {
+                inicioSegmento = null;
+                finSegmento = null;
             }
 
             if ((inicioSegmento != null) && (finSegmento!= null)) {

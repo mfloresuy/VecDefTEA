@@ -40,6 +40,6 @@ public class SegmentoFisico {
     }
 
     public static String construirID(final ParadaFisica paradaInicial, final ParadaFisica paradaFinal) {
-        return paradaFinal.getCodigoParada().toString() + "#" + paradaFinal.getCodigoParada().toString();
+        return paradaInicial.getCodigoParada().toString() + "#" + paradaFinal.getCodigoParada().toString();
     }
 }
