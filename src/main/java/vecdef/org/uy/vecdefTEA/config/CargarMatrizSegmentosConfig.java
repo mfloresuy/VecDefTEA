@@ -28,7 +28,8 @@ import java.util.Spliterators;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-@Component
+//@Component
+//TODO Descomentar para reconfigurar base de segmentos
 public class CargarMatrizSegmentosConfig {
 
     private static final Logger LOG = LoggerFactory.getLogger(CargarMatrizSegmentosConfig.class);
@@ -76,6 +77,7 @@ public class CargarMatrizSegmentosConfig {
             });
 
             paradaLineaRepository.findAllLineas().forEach(l -> {
+                LOG.info("CARGANDO LINEA " + l);
                 final Iterator<ParadaLinea> iterLinea = paradaLineaRepository.findByLineaOrderByOrdinal(l).iterator();
                 ParadaFisica paradaInicio;
                 ParadaFisica paradaFinal = iterLinea.next().getParadaFisica();
