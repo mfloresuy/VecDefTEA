@@ -164,5 +164,6 @@ public class HistoricoBusServiceTest {
         final TiempoBusEnSegmento tiempoBusEnSegmento = segmentoMasCerca.getHistorico().get(0);
         Assert.assertEquals(ahora.minusMinutes(-5L), tiempoBusEnSegmento.getInicio());
         Assert.assertEquals(ahora, tiempoBusEnSegmento.getFin());
+        Assert.assertEquals(5*60, tiempoBusEnSegmento.getDuracion());
     }
 }
