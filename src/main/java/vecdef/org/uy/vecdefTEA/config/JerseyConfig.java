@@ -7,7 +7,9 @@ import vecdef.org.uy.vecdefTEA.controller.SuscripcionBus;
 
 @Component
 public class JerseyConfig extends ResourceConfig {
+
     public JerseyConfig() {
         register(SuscripcionBus.class);
     }
+
 }

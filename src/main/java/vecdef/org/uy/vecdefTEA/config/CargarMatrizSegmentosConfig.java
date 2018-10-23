@@ -33,7 +33,7 @@ import java.util.stream.StreamSupport;
 public class CargarMatrizSegmentosConfig {
 
     private static final Logger LOG = LoggerFactory.getLogger(CargarMatrizSegmentosConfig.class);
-    private static final String URL_TRAYECTOS = "http://192.168.1.52/api/trayectosporlinea";
+    private static final String URL_TRAYECTOS = "http://192.168.1.44/api/trayectosporlinea";
 
     private final RestTemplate restTemplate;
     private final ParadaLineaRepository paradaLineaRepository;
@@ -77,7 +77,6 @@ public class CargarMatrizSegmentosConfig {
             });
 
             paradaLineaRepository.findAllLineas().forEach(l -> {
-                LOG.info("CARGANDO LINEA " + l);
                 final Iterator<ParadaLinea> iterLinea = paradaLineaRepository.findByLineaOrderByOrdinal(l).iterator();
                 ParadaFisica paradaInicio;
                 ParadaFisica paradaFinal = iterLinea.next().getParadaFisica();
