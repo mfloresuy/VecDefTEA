@@ -1,9 +1,15 @@
 package vecdef.org.uy.vecdefTEA.entidades;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 
+@Entity
 public class TiempoBusEnSegmento {
+
+    @Id
+    private Long id;
 
     @ManyToOne
     private Bus bus;
@@ -41,5 +47,13 @@ public class TiempoBusEnSegmento {
 
     public void setFin(final LocalDateTime fin) {
         this.fin = fin;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(final Long id) {
+        this.id = id;
     }
 }

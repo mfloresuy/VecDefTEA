@@ -2,6 +2,7 @@ package vecdef.org.uy.vecdefTEA.entidades;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 
 @Entity
@@ -10,6 +11,8 @@ public class Bus {
     @Id
     private Long id;
     private String linea;
+
+    @ManyToOne
     private SegmentoFisico segmentoActual;
 
     private LocalDateTime timestampSegmento;

@@ -193,8 +193,8 @@ public class PosicionServiceTest {
                 .withParadaFinal(paradaLineas.get(1).getParadaFisica())
                 .build();
 
-        final BusHistorico busHistorico = BusHistoricoBuilder.aBusHistorico().withEjeX(3.25).withEjeY(1).withLinea("1234").build();
-        Mockito.when(paradaRepository.findByLineaOrderByOrdinal(Mockito.eq("1234"))).thenReturn(paradaLineas);
+        final BusPosicionDTO busPosicionDTO = BusPosicionDTOBuilder.aBusPosicionDTO().withEjeX(3.25).withEjeY(1).withLinea("1234").build();
+        Mockito.when(paradaRepository.findByLineaOrderByOrdinal(Mockito.eq(1234L))).thenReturn(paradaLineas);
 
         Mockito.doReturn(Optional.of(segmentoFisico)).when(segmentoFisicoRepository).findById(idSegmento);
 

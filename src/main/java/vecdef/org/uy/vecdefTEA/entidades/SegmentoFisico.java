@@ -22,12 +22,6 @@ public class SegmentoFisico {
     @OneToMany
     private List<TiempoBusEnSegmento> historico = new ArrayList<>();
 
-    public SegmentoFisico(final ParadaFisica paradaInicial, final ParadaFisica paradaFinal) {
-        this.id = construirID(paradaInicial, paradaFinal);
-        this.paradaInicial = paradaInicial;
-        this.paradaFinal = paradaFinal;
-    }
-
     public ParadaFisica getParadaInicial() {
         return paradaInicial;
     }
