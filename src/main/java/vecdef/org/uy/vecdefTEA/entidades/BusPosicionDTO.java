@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 public class BusPosicionDTO implements IPosicionable {
 
     private Long idBus;
-    private String linea;
+    private Long linea;
     private double ejeX;
     private double ejeY;
     private double latitud;
@@ -23,11 +23,11 @@ public class BusPosicionDTO implements IPosicionable {
         this.idBus = idBus;
     }
 
-    public String getLinea() {
+    public Long getLinea() {
         return linea;
     }
 
-    public void setLinea(String linea) {
+    public void setLinea(final Long linea) {
         this.linea = linea;
     }
 

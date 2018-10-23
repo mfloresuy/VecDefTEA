@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public final class BusPosicionDTOBuilder {
     private Long idBus;
-    private String linea;
+    private Long linea;
     private double ejeX;
     private double ejeY;
     private LocalDateTime timestamp;
@@ -23,7 +23,7 @@ public final class BusPosicionDTOBuilder {
         return this;
     }
 
-    public BusPosicionDTOBuilder withLinea(String linea) {
+    public BusPosicionDTOBuilder withLinea(Long linea) {
         this.linea = linea;
         return this;
     }

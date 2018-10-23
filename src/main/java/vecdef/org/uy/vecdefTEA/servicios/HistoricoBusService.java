@@ -30,13 +30,13 @@ public class HistoricoBusService {
                 final Bus nuevo = new Bus();
                 nuevo.setId(busPosicionDTO.getIdBus());
                 nuevo.setLinea(busPosicionDTO.getLinea());
-                return nuevo;
+                return busRepository.save(nuevo);
         });
 
         bus.setLatitud(busPosicionDTO.getLatitud());
         bus.setLongitud(busPosicionDTO.getLongitud());
 
-        if ((bus.getSegmentoActual() == null) || (bus.getSegmentoActual().getId().equals(segmentoActual.getId()))) {
+        if ((bus.getSegmentoActual() == null) || (!bus.getSegmentoActual().getId().equals(segmentoActual.getId()))) {
 
             if (bus.getSegmentoActual() != null) {
                 final TiempoBusEnSegmento tiempoBusEnSegmento = new TiempoBusEnSegmento();

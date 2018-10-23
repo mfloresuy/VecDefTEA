@@ -10,7 +10,7 @@ public class Bus {
 
     @Id
     private Long id;
-    private String linea;
+    private Long linea;
 
     @ManyToOne
     private SegmentoFisico segmentoActual;
@@ -28,11 +28,11 @@ public class Bus {
         this.id = id;
     }
 
-    public String getLinea() {
+    public Long getLinea() {
         return linea;
     }
 
-    public void setLinea(final String linea) {
+    public void setLinea(final Long linea) {
         this.linea = linea;
     }
 

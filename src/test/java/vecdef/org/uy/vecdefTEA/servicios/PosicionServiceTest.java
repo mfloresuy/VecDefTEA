@@ -85,7 +85,7 @@ public class PosicionServiceTest {
                 .withParadaFinal(parada3.getParadaFisica())
                 .build();
 
-        final BusPosicionDTO busPosicionDTO = BusPosicionDTOBuilder.aBusPosicionDTO().withEjeX(0.75).withEjeY(0.8).withLinea("1234").build();
+        final BusPosicionDTO busPosicionDTO = BusPosicionDTOBuilder.aBusPosicionDTO().withEjeX(0.75).withEjeY(0.8).withLinea(1234L).build();
         Mockito.when(paradaRepository.findByLineaOrderByOrdinal(Mockito.eq(1234L))).thenReturn(Arrays.asList(parada1, parada2, parada3, parada4));
 
 
@@ -149,7 +149,7 @@ public class PosicionServiceTest {
                 .withParadaFinal(paradaLineas.get(1).getParadaFisica())
                 .build();
 
-        final BusPosicionDTO busPosicionDTO = BusPosicionDTOBuilder.aBusPosicionDTO().withEjeX(0.25).withEjeY(0).withLinea("1234").build();
+        final BusPosicionDTO busPosicionDTO = BusPosicionDTOBuilder.aBusPosicionDTO().withEjeX(0.25).withEjeY(0).withLinea(1234L).build();
         Mockito.when(paradaRepository.findByLineaOrderByOrdinal(Mockito.eq(1234L))).thenReturn(paradaLineas);
 
 
@@ -172,7 +172,7 @@ public class PosicionServiceTest {
                 .withParadaFinal(paradaLineas.get(1).getParadaFisica())
                 .build();
 
-        final BusPosicionDTO busPosicionDTO = BusPosicionDTOBuilder.aBusPosicionDTO().withEjeX(2.25).withEjeY(0).withLinea("1234").build();
+        final BusPosicionDTO busPosicionDTO = BusPosicionDTOBuilder.aBusPosicionDTO().withEjeX(2.25).withEjeY(0).withLinea(1234L).build();
         Mockito.when(paradaRepository.findByLineaOrderByOrdinal(Mockito.eq(1234L))).thenReturn(paradaLineas);
 
         Mockito.doReturn(Optional.of(segmentoFisico)).when(segmentoFisicoRepository).findById(idSegmento);
@@ -193,7 +193,7 @@ public class PosicionServiceTest {
                 .withParadaFinal(paradaLineas.get(1).getParadaFisica())
                 .build();
 
-        final BusPosicionDTO busPosicionDTO = BusPosicionDTOBuilder.aBusPosicionDTO().withEjeX(3.25).withEjeY(1).withLinea("1234").build();
+        final BusPosicionDTO busPosicionDTO = BusPosicionDTOBuilder.aBusPosicionDTO().withEjeX(3.25).withEjeY(1).withLinea(1234L).build();
         Mockito.when(paradaRepository.findByLineaOrderByOrdinal(Mockito.eq(1234L))).thenReturn(paradaLineas);
 
         Mockito.doReturn(Optional.of(segmentoFisico)).when(segmentoFisicoRepository).findById(idSegmento);
