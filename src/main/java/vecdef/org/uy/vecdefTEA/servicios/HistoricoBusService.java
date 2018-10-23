@@ -43,7 +43,7 @@ public class HistoricoBusService {
                 tiempoBusEnSegmento.setBus(bus);
                 tiempoBusEnSegmento.setInicio(bus.getTimestampSegmento());
                 tiempoBusEnSegmento.setFin((busPosicionDTO.getTimestamp()));
-                tiempoBusEnSegmento.setDuracion(Duration.between(tiempoBusEnSegmento.getInicio(), tiempoBusEnSegmento.getFin()).getSeconds());
+                tiempoBusEnSegmento.setDuracion(Duration.between(tiempoBusEnSegmento.getFin(), tiempoBusEnSegmento.getInicio()).getSeconds());
                 segmentoActual.getHistorico().add(tiempoBusEnSegmento);
                 segmentoFisicoRepository.save(segmentoActual);
             }
