@@ -3,7 +3,7 @@ package vecdef.org.uy.vecdefTEA.servicios;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import vecdef.org.uy.vecdefTEA.entidades.BusHistorico;
+import vecdef.org.uy.vecdefTEA.entidades.BusPosicionDTO;
 import vecdef.org.uy.vecdefTEA.entidades.ParadaFisica;
 import vecdef.org.uy.vecdefTEA.entidades.ParadaLinea;
 import vecdef.org.uy.vecdefTEA.entidades.SegmentoFisico;
@@ -23,11 +23,11 @@ public class PosicionService {
     @Autowired
     private SegmentoFisicoRepository segmentoFisicoRepository;
 
-    public SegmentoFisico buscarSegmentoFiscoMasCerca(final BusHistorico busHistorico) {
-        final List<ParadaLinea> paradasDeLinea = paradaRepository.findByLineaOrderByOrdinal(Long.valueOf(busHistorico.getLinea()));
+    public SegmentoFisico buscarSegmentoFiscoMasCerca(final BusPosicionDTO busPosicionDTO) {
+        final List<ParadaLinea> paradasDeLinea = paradaRepository.findByLineaOrderByOrdinal(Long.valueOf(busPosicionDTO.getLinea()));
         if (!CollectionUtils.isEmpty(paradasDeLinea)) {
 
-            final ParadaLinea paradaMasCerca = Collections.min(paradasDeLinea, Comparator.comparing(parada -> Utils.distanciaEntrePuntos(parada.getParadaFisica(), busHistorico)));
+            final ParadaLinea paradaMasCerca = Collections.min(paradasDeLinea, Comparator.comparing(parada -> Utils.distanciaEntrePuntos(parada.getParadaFisica(), busPosicionDTO)));
 
             final ParadaFisica paradaSiguiente = paradasDeLinea.stream().filter(siguiente -> siguiente.getOrdinal() > paradaMasCerca.getOrdinal())
                     .min(Comparator.comparing(ParadaLinea::getOrdinal)).map(ParadaLinea::getParadaFisica).orElse(null);
@@ -40,8 +40,8 @@ public class PosicionService {
             final ParadaFisica finSegmento;
 
             if ((paradaSiguiente != null) && (paradaAnterior != null)) {
-                final double distanciaSegmentoAnterior = Utils.distanciaEntreSegmentoYPunto(paradaAnterior, paradaMasCerca.getParadaFisica(), busHistorico);
-                final double distanciaSegmentoSiguiente = Utils.distanciaEntreSegmentoYPunto(paradaMasCerca.getParadaFisica(), paradaSiguiente, busHistorico);
+                final double distanciaSegmentoAnterior = Utils.distanciaEntreSegmentoYPunto(paradaAnterior, paradaMasCerca.getParadaFisica(), busPosicionDTO);
+                final double distanciaSegmentoSiguiente = Utils.distanciaEntreSegmentoYPunto(paradaMasCerca.getParadaFisica(), paradaSiguiente, busPosicionDTO);
 
                 if (distanciaSegmentoAnterior <= distanciaSegmentoSiguiente) {
                     inicioSegmento = paradaAnterior;

@@ -5,13 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
-import vecdef.org.uy.vecdefTEA.entidades.BusHistorico;
+import vecdef.org.uy.vecdefTEA.entidades.BusPosicionDTO;
 import vecdef.org.uy.vecdefTEA.utils.Utils;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 
 @Path("algo")
@@ -22,24 +23,24 @@ public class SuscripcionBus {
     @POST
     @Path("sucri")
     public Response susucripcion(@RequestBody final String body) {
-        final BusHistorico historico = new BusHistorico();
+        final BusPosicionDTO historico = new BusPosicionDTO();
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             LOGGER.info(body);
             final JsonNode jsonNode = objectMapper.readTree(body).get("data").get(0);
-            final BusHistorico busHistorico = new BusHistorico();
-            busHistorico.setIdBus(jsonNode.get("id").longValue());
-            busHistorico.setLinea(jsonNode.get("linea").get("value").asText());
+            final BusPosicionDTO busPosicionDTO = new BusPosicionDTO();
+            busPosicionDTO.setIdBus(jsonNode.get("id").longValue());
+            busPosicionDTO.setLinea(jsonNode.get("linea").get("value").asText());
 
             double[] coordenadas = Utils.aplanar(jsonNode.get("location").get("value").get("coordinates"));
 
-            busHistorico.setEjeX(coordenadas[0]);
-            busHistorico.setEjeY(coordenadas[1]);
+            busPosicionDTO.setEjeX(coordenadas[0]);
+            busPosicionDTO.setEjeY(coordenadas[1]);
 
-            busHistorico.setTimestamp(jsonNode.get("timestamp").get("value").asText());
+            busPosicionDTO.setTimestamp(LocalDateTime.parse(jsonNode.get("timestamp").get("value").asText()));
 
             ObjectMapper mapper = new ObjectMapper();
-            LOGGER.info(mapper.writeValueAsString(busHistorico));
+            LOGGER.info(mapper.writeValueAsString(busPosicionDTO));
 
             return Response.status(Response.Status.OK).build();
         } catch (IOException e) {

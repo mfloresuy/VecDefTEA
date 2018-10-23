@@ -9,10 +9,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
-import vecdef.org.uy.vecdefTEA.entidades.BusHistorico;
+import vecdef.org.uy.vecdefTEA.entidades.BusPosicionDTO;
 import vecdef.org.uy.vecdefTEA.entidades.ParadaLinea;
 import vecdef.org.uy.vecdefTEA.entidades.SegmentoFisico;
-import vecdef.org.uy.vecdefTEA.entidades.builders.BusHistoricoBuilder;
+import vecdef.org.uy.vecdefTEA.entidades.builders.BusPosicionDTOBuilder;
 import vecdef.org.uy.vecdefTEA.entidades.builders.ParadaFisicaBuilder;
 import vecdef.org.uy.vecdefTEA.entidades.builders.ParadaLineaBuilder;
 import vecdef.org.uy.vecdefTEA.entidades.builders.SegmentoFisicoBuilder;
@@ -85,13 +85,13 @@ public class PosicionServiceTest {
                 .withParadaFinal(parada3.getParadaFisica())
                 .build();
 
-        final BusHistorico busHistorico = BusHistoricoBuilder.aBusHistorico().withEjeX(0.75).withEjeY(0.8).withLinea("1234").build();
+        final BusPosicionDTO busPosicionDTO = BusPosicionDTOBuilder.aBusPosicionDTO().withEjeX(0.75).withEjeY(0.8).withLinea("1234").build();
         Mockito.when(paradaRepository.findByLineaOrderByOrdinal(Mockito.eq(1234L))).thenReturn(Arrays.asList(parada1, parada2, parada3, parada4));
 
 
         Mockito.doReturn(Optional.of(segmentoFisico)).when(segmentoFisicoRepository).findById(idSegmento);
 
-        final SegmentoFisico segmento = posicionService.buscarSegmentoFiscoMasCerca(busHistorico);
+        final SegmentoFisico segmento = posicionService.buscarSegmentoFiscoMasCerca(busPosicionDTO);
         Mockito.verify(segmentoFisicoRepository).findById(idSegmento);
         Assert.assertSame(segmento, segmentoFisico);
 
@@ -149,13 +149,13 @@ public class PosicionServiceTest {
                 .withParadaFinal(paradaLineas.get(1).getParadaFisica())
                 .build();
 
-        final BusHistorico busHistorico = BusHistoricoBuilder.aBusHistorico().withEjeX(0.25).withEjeY(0).withLinea("1234").build();
+        final BusPosicionDTO busPosicionDTO = BusPosicionDTOBuilder.aBusPosicionDTO().withEjeX(0.25).withEjeY(0).withLinea("1234").build();
         Mockito.when(paradaRepository.findByLineaOrderByOrdinal(Mockito.eq(1234L))).thenReturn(paradaLineas);
 
 
         Mockito.doReturn(Optional.of(segmentoFisico)).when(segmentoFisicoRepository).findById(idSegmento);
 
-        final SegmentoFisico segmento = posicionService.buscarSegmentoFiscoMasCerca(busHistorico);
+        final SegmentoFisico segmento = posicionService.buscarSegmentoFiscoMasCerca(busPosicionDTO);
         Mockito.verify(segmentoFisicoRepository).findById(idSegmento);
         Assert.assertSame(segmento, segmentoFisico);
 
@@ -172,12 +172,12 @@ public class PosicionServiceTest {
                 .withParadaFinal(paradaLineas.get(1).getParadaFisica())
                 .build();
 
-        final BusHistorico busHistorico = BusHistoricoBuilder.aBusHistorico().withEjeX(2.25).withEjeY(0).withLinea("1234").build();
+        final BusPosicionDTO busPosicionDTO = BusPosicionDTOBuilder.aBusPosicionDTO().withEjeX(2.25).withEjeY(0).withLinea("1234").build();
         Mockito.when(paradaRepository.findByLineaOrderByOrdinal(Mockito.eq(1234L))).thenReturn(paradaLineas);
 
         Mockito.doReturn(Optional.of(segmentoFisico)).when(segmentoFisicoRepository).findById(idSegmento);
 
-        final SegmentoFisico segmento = posicionService.buscarSegmentoFiscoMasCerca(busHistorico);
+        final SegmentoFisico segmento = posicionService.buscarSegmentoFiscoMasCerca(busPosicionDTO);
         Mockito.verify(segmentoFisicoRepository).findById(idSegmento);
         Assert.assertSame(segmento, segmentoFisico);
     }
@@ -194,11 +194,11 @@ public class PosicionServiceTest {
                 .build();
 
         final BusHistorico busHistorico = BusHistoricoBuilder.aBusHistorico().withEjeX(3.25).withEjeY(1).withLinea("1234").build();
-        Mockito.when(paradaRepository.findByLineaOrderByOrdinal(Mockito.eq(1234L))).thenReturn(paradaLineas);
+        Mockito.when(paradaRepository.findByLineaOrderByOrdinal(Mockito.eq("1234"))).thenReturn(paradaLineas);
 
         Mockito.doReturn(Optional.of(segmentoFisico)).when(segmentoFisicoRepository).findById(idSegmento);
 
-        final SegmentoFisico segmento = posicionService.buscarSegmentoFiscoMasCerca(busHistorico);
+        final SegmentoFisico segmento = posicionService.buscarSegmentoFiscoMasCerca(busPosicionDTO);
         Mockito.verify(segmentoFisicoRepository).findById(idSegmento);
         Assert.assertSame(segmento, segmentoFisico);
     }

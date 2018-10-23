@@ -2,13 +2,18 @@ package vecdef.org.uy.vecdefTEA.entidades;
 
 import vecdef.org.uy.vecdefTEA.utils.IPosicionable;
 
-public class BusHistorico implements IPosicionable {
+import java.time.LocalDateTime;
+
+public class BusPosicionDTO implements IPosicionable {
 
     private Long idBus;
     private String linea;
     private double ejeX;
     private double ejeY;
-    private String timestamp;
+    private double latitud;
+    private double longitud;
+
+    private LocalDateTime timestamp;
 
     public Long getIdBus() {
         return idBus;
@@ -26,11 +31,11 @@ public class BusHistorico implements IPosicionable {
         this.linea = linea;
     }
 
-    public String getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(final LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -48,5 +53,21 @@ public class BusHistorico implements IPosicionable {
 
     public void setEjeY(double ejeY) {
         this.ejeY = ejeY;
+    }
+
+    public double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(final double latitud) {
+        this.latitud = latitud;
+    }
+
+    public double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(final double longitud) {
+        this.longitud = longitud;
     }
 }
