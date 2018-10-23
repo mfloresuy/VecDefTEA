@@ -27,10 +27,17 @@ public class HistoricoBusService {
         final SegmentoFisico segmentoActual = posicionService.buscarSegmentoFiscoMasCerca(busPosicionDTO);
 
         final Bus bus = busRepository.findById(busPosicionDTO.getIdBus()).orElseGet(() -> {
+<<<<<<< Updated upstream
+                final Bus nuevo = new Bus();
+                nuevo.setId(busPosicionDTO.getIdBus());
+                nuevo.setLinea(busPosicionDTO.getLinea());
+                return busRepository.save(nuevo);
+=======
             final Bus nuevo = new Bus();
             nuevo.setId(busPosicionDTO.getIdBus());
             nuevo.setLinea(busPosicionDTO.getLinea());
             return nuevo;
+>>>>>>> Stashed changes
         });
 
         bus.setLatitud(busPosicionDTO.getLatitud());

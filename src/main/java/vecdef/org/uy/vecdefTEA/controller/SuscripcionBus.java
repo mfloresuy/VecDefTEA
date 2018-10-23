@@ -4,8 +4,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import vecdef.org.uy.vecdefTEA.entidades.BusPosicionDTO;
+import vecdef.org.uy.vecdefTEA.servicios.HistoricoBusService;
 import vecdef.org.uy.vecdefTEA.utils.Utils;
 
 import javax.ws.rs.POST;
@@ -19,15 +21,17 @@ import java.time.format.DateTimeFormatter;
 @Path("bus_evento")
 public class SuscripcionBus {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(SuscripcionBus.class);
+    private HistoricoBusService historicoBusService;
+
+    @Autowired
+    public SuscripcionBus(final HistoricoBusService historicoBusService) {
+        this.historicoBusService = historicoBusService;
+    }
 
     @POST
     public Response suscripcion(@RequestBody final String body) {
-        final BusPosicionDTO historico = new BusPosicionDTO();
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            LOGGER.info(body);
-
             final JsonNode jsonNode = objectMapper.readTree(body).get("data").get(0);
 
             final BusPosicionDTO busPosicionDTO = new BusPosicionDTO();
@@ -42,8 +46,7 @@ public class SuscripcionBus {
             busPosicionDTO.setTimestamp(LocalDateTime.parse(jsonNode.get("timestamp").get("value").asText(),
                     DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SS'Z'")));
 
-            ObjectMapper mapper = new ObjectMapper();
-            LOGGER.info(mapper.writeValueAsString(busPosicionDTO));
+            historicoBusService.procesarPosicionBus(busPosicionDTO);
 
             return Response.status(Response.Status.OK).build();
         } catch (final IOException e) {
