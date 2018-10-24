@@ -3,7 +3,7 @@ package vecdef.org.uy.vecdefTEA.servicios;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import vecdef.org.uy.vecdefTEA.entidades.BusPosicionDTO;
+import vecdef.org.uy.vecdefTEA.entidades.dto.BusPosicionDTO;
 import vecdef.org.uy.vecdefTEA.entidades.ParadaFisica;
 import vecdef.org.uy.vecdefTEA.entidades.ParadaLinea;
 import vecdef.org.uy.vecdefTEA.entidades.SegmentoFisico;

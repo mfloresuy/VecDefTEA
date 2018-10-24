@@ -7,6 +7,8 @@ import org.mockito.*;
 import org.mockito.junit.MockitoJUnitRunner;
 import vecdef.org.uy.vecdefTEA.entidades.*;
 import vecdef.org.uy.vecdefTEA.entidades.builders.*;
+import vecdef.org.uy.vecdefTEA.entidades.builders.dto.BusPosicionDTOBuilder;
+import vecdef.org.uy.vecdefTEA.entidades.dto.BusPosicionDTO;
 import vecdef.org.uy.vecdefTEA.repository.BusRepository;
 import vecdef.org.uy.vecdefTEA.repository.SegmentoFisicoRepository;
 
@@ -77,8 +79,8 @@ public class HistoricoBusServiceTest {
         Mockito.verify(busRepository, Mockito.times(2)).save(busPosicionCaptor.capture());
         final Bus bus = busPosicionCaptor.getValue();
 
-        Assert.assertEquals(bus.getLatitud(), busPosicionDTO.getLatitud(), 0.00001);
-        Assert.assertEquals(bus.getLongitud(), busPosicionDTO.getLongitud(), 0.00001);
+        Assert.assertEquals(bus.getEjeX(), busPosicionDTO.getEjeX(), 0.00001);
+        Assert.assertEquals(bus.getEjeY(), busPosicionDTO.getEjeY(), 0.00001);
         Assert.assertSame(bus.getSegmentoActual(), segmentoFisico);
         Assert.assertEquals(bus.getTimestampSegmento(), busPosicionDTO.getTimestamp());
     }
@@ -156,8 +158,8 @@ public class HistoricoBusServiceTest {
 
         Mockito.verify(segmentoFisicoRepository).save(segmentoMasCerca);
 
-        Assert.assertEquals(bus.getLatitud(), busPosicionDTO.getLatitud(), 0.00001);
-        Assert.assertEquals(bus.getLongitud(), busPosicionDTO.getLongitud(), 0.00001);
+        Assert.assertEquals(bus.getEjeX(), busPosicionDTO.getEjeX(), 0.00001);
+        Assert.assertEquals(bus.getEjeY(), busPosicionDTO.getEjeY(), 0.00001);
         Assert.assertSame(bus.getSegmentoActual(), segmentoMasCerca);
         Assert.assertEquals(bus.getTimestampSegmento(), busPosicionDTO.getTimestamp());
         Assert.assertEquals(1, segmentoMasCerca.getHistorico().size());

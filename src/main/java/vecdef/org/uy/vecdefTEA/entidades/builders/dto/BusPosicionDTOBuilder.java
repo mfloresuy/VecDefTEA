@@ -1,6 +1,6 @@
-package vecdef.org.uy.vecdefTEA.entidades.builders;
+package vecdef.org.uy.vecdefTEA.entidades.builders.dto;
 
-import vecdef.org.uy.vecdefTEA.entidades.BusPosicionDTO;
+import vecdef.org.uy.vecdefTEA.entidades.dto.BusPosicionDTO;
 
 import java.time.LocalDateTime;
 

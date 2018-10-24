@@ -2,11 +2,9 @@ package vecdef.org.uy.vecdefTEA.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
-import vecdef.org.uy.vecdefTEA.entidades.BusPosicionDTO;
+import vecdef.org.uy.vecdefTEA.entidades.dto.BusPosicionDTO;
 import vecdef.org.uy.vecdefTEA.servicios.HistoricoBusService;
 import vecdef.org.uy.vecdefTEA.utils.Utils;
 
@@ -35,7 +33,7 @@ public class SuscripcionBus {
             final JsonNode jsonNode = objectMapper.readTree(body).get("data").get(0);
 
             final BusPosicionDTO busPosicionDTO = new BusPosicionDTO();
-            busPosicionDTO.setIdBus(jsonNode.get("id").longValue());
+            busPosicionDTO.setIdBus(jsonNode.get("id").asLong());
             busPosicionDTO.setLinea(jsonNode.get("linea").get("value").asLong());
 
             double[] coordenadas = Utils.aplanar(jsonNode.get("location").get("value").get("coordinates"));

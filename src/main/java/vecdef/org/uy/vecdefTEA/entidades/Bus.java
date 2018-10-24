@@ -17,8 +17,8 @@ public class Bus {
 
     private LocalDateTime timestampSegmento;
 
-    private double latitud;
-    private double longitud;
+    private double ejeX;
+    private double ejeY;
 
     public Long getId() {
         return id;
@@ -52,19 +52,20 @@ public class Bus {
         this.timestampSegmento = timestampSegmento;
     }
 
-    public double getLatitud() {
-        return latitud;
+    public double getEjeX() {
+        return ejeX;
     }
 
-    public void setLatitud(final double latitud) {
-        this.latitud = latitud;
+    public void setEjeX(final double ejeX) {
+        this.ejeX = ejeX;
     }
 
-    public double getLongitud() {
-        return longitud;
+    public double getEjeY() {
+        return ejeY;
     }
 
-    public void setLongitud(final double longitud) {
-        this.longitud = longitud;
+    public void setEjeY(final double ejeY) {
+        this.ejeY = ejeY;
     }
+
 }

@@ -3,9 +3,9 @@ package vecdef.org.uy.vecdefTEA.servicios;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vecdef.org.uy.vecdefTEA.entidades.Bus;
-import vecdef.org.uy.vecdefTEA.entidades.BusPosicionDTO;
 import vecdef.org.uy.vecdefTEA.entidades.SegmentoFisico;
 import vecdef.org.uy.vecdefTEA.entidades.TiempoBusEnSegmento;
+import vecdef.org.uy.vecdefTEA.entidades.dto.BusPosicionDTO;
 import vecdef.org.uy.vecdefTEA.repository.BusRepository;
 import vecdef.org.uy.vecdefTEA.repository.SegmentoFisicoRepository;
 
@@ -33,10 +33,10 @@ public class HistoricoBusService {
             return nuevo;
         });
 
-        bus.setLatitud(busPosicionDTO.getLatitud());
-        bus.setLongitud(busPosicionDTO.getLongitud());
+        bus.setEjeX(busPosicionDTO.getEjeX());
+        bus.setEjeY(busPosicionDTO.getEjeY());
 
-        if ((bus.getSegmentoActual() == null) || (!bus.getSegmentoActual().getId().equals(segmentoActual.getId()))) {
+        if (bus.getSegmentoActual() == null || !bus.getSegmentoActual().getId().equals(segmentoActual.getId())) {
 
             if (bus.getSegmentoActual() != null) {
                 final TiempoBusEnSegmento tiempoBusEnSegmento = new TiempoBusEnSegmento();
@@ -52,7 +52,6 @@ public class HistoricoBusService {
             bus.setSegmentoActual(segmentoActual);
 
         }
-
         busRepository.save(bus);
     }
 }

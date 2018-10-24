@@ -13,7 +13,7 @@ import java.io.IOException;
 @Component
 public class SuscripcionOrionConfig {
 
-    private static final String URL_SUSCRIPCION = "http://192.168.1.44:1026/v2/subscriptions";
+    private static final String URL_SUSCRIPCION = "http://192.168.1.46:1026/v2/subscriptions";
     private static final String URL_CALLBACK = "http://192.168.1.48:8080/bus_evento";
 
     private final RestTemplate restTemplate;

@@ -1,4 +1,4 @@
-package vecdef.org.uy.vecdefTEA.entidades;
+package vecdef.org.uy.vecdefTEA.entidades.dto;
 
 import vecdef.org.uy.vecdefTEA.utils.IPosicionable;
 
@@ -10,8 +10,6 @@ public class BusPosicionDTO implements IPosicionable {
     private Long linea;
     private double ejeX;
     private double ejeY;
-    private double latitud;
-    private double longitud;
 
     private LocalDateTime timestamp;
 
@@ -55,19 +53,4 @@ public class BusPosicionDTO implements IPosicionable {
         this.ejeY = ejeY;
     }
 
-    public double getLatitud() {
-        return latitud;
-    }
-
-    public void setLatitud(final double latitud) {
-        this.latitud = latitud;
-    }
-
-    public double getLongitud() {
-        return longitud;
-    }
-
-    public void setLongitud(final double longitud) {
-        this.longitud = longitud;
-    }
 }

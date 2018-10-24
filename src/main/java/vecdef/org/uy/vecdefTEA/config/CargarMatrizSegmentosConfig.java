@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import vecdef.org.uy.vecdefTEA.entidades.ParadaFisica;
 import vecdef.org.uy.vecdefTEA.entidades.ParadaLinea;
@@ -33,7 +32,7 @@ import java.util.stream.StreamSupport;
 public class CargarMatrizSegmentosConfig {
 
     private static final Logger LOG = LoggerFactory.getLogger(CargarMatrizSegmentosConfig.class);
-    private static final String URL_TRAYECTOS = "http://192.168.1.44/api/trayectosporlinea";
+    private static final String URL_TRAYECTOS = "http://192.168.1.46/api/trayectosporlinea";
 
     private final RestTemplate restTemplate;
     private final ParadaLineaRepository paradaLineaRepository;
