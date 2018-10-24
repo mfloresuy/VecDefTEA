@@ -36,8 +36,13 @@ public class SuscripcionBus {
             busPosicionDTO.setIdBus(jsonNode.get("id").asLong());
             busPosicionDTO.setLinea(jsonNode.get("linea").get("value").asLong());
 
-            double[] coordenadas = Utils.aplanar(jsonNode.get("location").get("value").get("coordinates"));
+            final JsonNode jsonCoordenadas = jsonNode.get("location").get("value").get("coordinates");
+            double longitud = jsonCoordenadas.get(0).asDouble();
+            double latituud = jsonCoordenadas.get(1).asDouble();
+            double[] coordenadas = Utils.aplanar(longitud, latituud);
 
+            busPosicionDTO.setLongitud(longitud);
+            busPosicionDTO.setLatitud(latituud);
             busPosicionDTO.setEjeX(coordenadas[0]);
             busPosicionDTO.setEjeY(coordenadas[1]);
 

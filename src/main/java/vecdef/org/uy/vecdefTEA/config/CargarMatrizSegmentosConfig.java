@@ -28,7 +28,7 @@ import java.util.Spliterators;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-//@Component
+@Component
 //TODO Descomentar para reconfigurar base de segmentos
 public class CargarMatrizSegmentosConfig {
 
@@ -84,7 +84,7 @@ public class CargarMatrizSegmentosConfig {
                     paradaInicio = paradaFinal;
                     paradaFinal = iterLinea.next().getParadaFisica();
                     final SegmentoFisico segmentoFisico = SegmentoFisicoBuilder.aSegmentoFisico().
-                            withId(String.valueOf(paradaInicio.getCodigoParada()) + String.valueOf(paradaFinal.getCodigoParada())).
+                            withId(SegmentoFisico.construirID(paradaInicio, paradaFinal)).
                             withParadaInicial(paradaInicio).withParadaFinal(paradaFinal).build();
                     segmentoFisicoRepository.save(segmentoFisico);
                 } while (iterLinea.hasNext());

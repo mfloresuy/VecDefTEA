@@ -1,5 +1,7 @@
 package vecdef.org.uy.vecdefTEA.servicios;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vecdef.org.uy.vecdefTEA.entidades.Bus;
@@ -8,11 +10,14 @@ import vecdef.org.uy.vecdefTEA.entidades.TiempoBusEnSegmento;
 import vecdef.org.uy.vecdefTEA.entidades.dto.BusPosicionDTO;
 import vecdef.org.uy.vecdefTEA.repository.BusRepository;
 import vecdef.org.uy.vecdefTEA.repository.SegmentoFisicoRepository;
+import vecdef.org.uy.vecdefTEA.repository.TiempoBusEnSegmentoRepository;
 
 import java.time.Duration;
 
 @Service
 public class HistoricoBusService {
+
+    private static final Logger LOG = LoggerFactory.getLogger(HistoricoBusService.class);
 
     @Autowired
     private PosicionService posicionService;
@@ -21,37 +26,42 @@ public class HistoricoBusService {
     private BusRepository busRepository;
 
     @Autowired
-    private SegmentoFisicoRepository segmentoFisicoRepository;
+    private TiempoBusEnSegmentoRepository tiempoBusEnSegmentoRepository;
 
     public void procesarPosicionBus(final BusPosicionDTO busPosicionDTO) {
         final SegmentoFisico segmentoActual = posicionService.buscarSegmentoFiscoMasCerca(busPosicionDTO);
+        if (segmentoActual == null) {
+            LOG.error("No se encuentran segmentos para el bus: " + busPosicionDTO);
+        } else {
+            final Bus bus = busRepository.findById(busPosicionDTO.getIdBus()).orElseGet(() -> {
+                final Bus nuevo = new Bus();
+                nuevo.setId(busPosicionDTO.getIdBus());
+                nuevo.setLinea(busPosicionDTO.getLinea());
+                return nuevo;
+            });
 
-        final Bus bus = busRepository.findById(busPosicionDTO.getIdBus()).orElseGet(() -> {
-            final Bus nuevo = new Bus();
-            nuevo.setId(busPosicionDTO.getIdBus());
-            nuevo.setLinea(busPosicionDTO.getLinea());
-            return nuevo;
-        });
+            bus.setLatitud(busPosicionDTO.getLatitud());
+            bus.setLongitud(busPosicionDTO.getLongitud());
 
-        bus.setEjeX(busPosicionDTO.getEjeX());
-        bus.setEjeY(busPosicionDTO.getEjeY());
+            if (bus.getSegmentoActual() == null || !bus.getSegmentoActual().getId().equals(segmentoActual.getId())) {
 
-        if (bus.getSegmentoActual() == null || !bus.getSegmentoActual().getId().equals(segmentoActual.getId())) {
+                if (bus.getSegmentoActual() != null) {
+                    final TiempoBusEnSegmento tiempoBusEnSegmento = new TiempoBusEnSegmento();
+                    tiempoBusEnSegmento.setBus(bus);
+                    tiempoBusEnSegmento.setInicio(bus.getTimestampSegmento());
+                    tiempoBusEnSegmento.setFin((busPosicionDTO.getTimestamp()));
+                    tiempoBusEnSegmento.setDuracion(Duration.between(tiempoBusEnSegmento.getFin(), tiempoBusEnSegmento.getInicio()).getSeconds());
+                    tiempoBusEnSegmento.setSegmentoFisico(segmentoActual);
+                    tiempoBusEnSegmentoRepository.save(tiempoBusEnSegmento);
+                }
 
-            if (bus.getSegmentoActual() != null) {
-                final TiempoBusEnSegmento tiempoBusEnSegmento = new TiempoBusEnSegmento();
-                tiempoBusEnSegmento.setBus(bus);
-                tiempoBusEnSegmento.setInicio(bus.getTimestampSegmento());
-                tiempoBusEnSegmento.setFin((busPosicionDTO.getTimestamp()));
-                tiempoBusEnSegmento.setDuracion(Duration.between(tiempoBusEnSegmento.getFin(), tiempoBusEnSegmento.getInicio()).getSeconds());
-                segmentoActual.getHistorico().add(tiempoBusEnSegmento);
-                segmentoFisicoRepository.save(segmentoActual);
+                bus.setTimestampSegmento(busPosicionDTO.getTimestamp());
+                bus.setSegmentoActual(segmentoActual);
+
             }
 
-            bus.setTimestampSegmento(busPosicionDTO.getTimestamp());
-            bus.setSegmentoActual(segmentoActual);
-
+            LOG.info("Guardando: " + bus);
+            busRepository.save(bus);
         }
-        busRepository.save(bus);
     }
 }

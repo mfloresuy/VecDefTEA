@@ -10,6 +10,8 @@ public class BusPosicionDTO implements IPosicionable {
     private Long linea;
     private double ejeX;
     private double ejeY;
+    private double latitud;
+    private double longitud;
 
     private LocalDateTime timestamp;
 
@@ -17,7 +19,7 @@ public class BusPosicionDTO implements IPosicionable {
         return idBus;
     }
 
-    public void setIdBus(Long idBus) {
+    public void setIdBus(final Long idBus) {
         this.idBus = idBus;
     }
 
@@ -29,6 +31,40 @@ public class BusPosicionDTO implements IPosicionable {
         this.linea = linea;
     }
 
+    @Override
+    public double getEjeX() {
+        return ejeX;
+    }
+
+    public void setEjeX(final double ejeX) {
+        this.ejeX = ejeX;
+    }
+
+    @Override
+    public double getEjeY() {
+        return ejeY;
+    }
+
+    public void setEjeY(final double ejeY) {
+        this.ejeY = ejeY;
+    }
+
+    public double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(final double latitud) {
+        this.latitud = latitud;
+    }
+
+    public double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(final double longitud) {
+        this.longitud = longitud;
+    }
+
     public LocalDateTime getTimestamp() {
         return timestamp;
     }
@@ -37,20 +73,17 @@ public class BusPosicionDTO implements IPosicionable {
         this.timestamp = timestamp;
     }
 
-    public double getEjeX() {
-        return ejeX;
-    }
-
-    public void setEjeX(double ejeX) {
-        this.ejeX = ejeX;
-    }
-
-    public double getEjeY() {
-        return ejeY;
-    }
-
-    public void setEjeY(double ejeY) {
-        this.ejeY = ejeY;
+    @Override
+    public String toString() {
+        return "BusPosicionDTO{" +
+                "idBus=" + idBus +
+                ", linea=" + linea +
+                ", ejeX=" + ejeX +
+                ", ejeY=" + ejeY +
+                ", latitud=" + latitud +
+                ", longitud=" + longitud +
+                ", timestamp=" + timestamp +
+                '}';
     }
 
 }

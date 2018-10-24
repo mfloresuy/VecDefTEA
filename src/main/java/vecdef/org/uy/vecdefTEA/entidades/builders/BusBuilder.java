@@ -56,8 +56,8 @@ public final class BusBuilder {
         bus.setLinea(linea);
         bus.setSegmentoActual(segmentoActual);
         bus.setTimestampSegmento(timestampSegmento);
-        bus.setEjeX(latitud);
-        bus.setEjeY(longitud);
+        bus.setLatitud(latitud);
+        bus.setLongitud(longitud);
         return bus;
     }
 }

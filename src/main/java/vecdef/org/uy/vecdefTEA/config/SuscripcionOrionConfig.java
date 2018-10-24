@@ -2,6 +2,8 @@ package vecdef.org.uy.vecdefTEA.config;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Component;
@@ -12,6 +14,8 @@ import java.io.IOException;
 
 @Component
 public class SuscripcionOrionConfig {
+
+    private static final Logger LOG = LoggerFactory.getLogger(SuscripcionOrionConfig.class);
 
     private static final String URL_SUSCRIPCION = "http://192.168.1.46:1026/v2/subscriptions";
     private static final String URL_CALLBACK = "http://192.168.1.48:8080/bus_evento";
@@ -41,6 +45,7 @@ public class SuscripcionOrionConfig {
                 "    }\n" +
                 "  }\n" +
                 "}"), JsonNode.class);
+        LOG.info("Suscricpion a Orion exitosa");
     }
 
 }
