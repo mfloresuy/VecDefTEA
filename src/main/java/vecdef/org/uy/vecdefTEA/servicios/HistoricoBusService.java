@@ -13,8 +13,12 @@ import vecdef.org.uy.vecdefTEA.repository.SegmentoFisicoRepository;
 import vecdef.org.uy.vecdefTEA.repository.TiempoBusEnSegmentoRepository;
 
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.DoubleBinaryOperator;
+import java.util.stream.Collectors;
 
 @Service
 public class HistoricoBusService {
@@ -50,15 +54,18 @@ public class HistoricoBusService {
 
             if (bus.getSegmentoActual() == null || !bus.getSegmentoActual().getId().equals(segmentoActual.getId())) {
 
-                if (bus.getSegmentoActual() != null) {
+                if (bus.getSegmentoActual() != null && Duration.between(bus.getTimestampSegmento(), busPosicionDTO.getTimestamp()).getSeconds() > 0) {
                     final TiempoBusEnSegmento tiempoBusEnSegmento = new TiempoBusEnSegmento();
                     tiempoBusEnSegmento.setBus(bus);
                     tiempoBusEnSegmento.setInicio(bus.getTimestampSegmento());
-                    tiempoBusEnSegmento.setFin((busPosicionDTO.getTimestamp()));
+                    tiempoBusEnSegmento.setFin(busPosicionDTO.getTimestamp());
                     tiempoBusEnSegmento.setDuracion(Duration.between(tiempoBusEnSegmento.getInicio(), tiempoBusEnSegmento.getFin()).getSeconds());
                     tiempoBusEnSegmento.setSegmentoFisico(segmentoActual);
                     tiempoBusEnSegmentoRepository.save(tiempoBusEnSegmento);
+
                     segmentoActual.setEta(obtenerTiempoEstimadoDeSegmento(segmentoActual));
+                    segmentoActual.setEtaPonderado(obtenerTiempoPonderadoEstimadoDeSegmento(segmentoActual));
+                    segmentoActual.setLecturas(segmentoActual.getLecturas() + 1);
                     segmentoFisicoRepository.save(segmentoActual);
                 }
 
@@ -75,5 +82,18 @@ public class HistoricoBusService {
     public double obtenerTiempoEstimadoDeSegmento(final SegmentoFisico segmentoFisico) {
         final List<TiempoBusEnSegmento> tiempos = tiempoBusEnSegmentoRepository.findBySegmentoFisico(segmentoFisico);
         return tiempos.stream().mapToDouble(TiempoBusEnSegmento::getDuracion).average().orElse(Double.MAX_VALUE);
+    }
+
+    public double obtenerTiempoPonderadoEstimadoDeSegmento(final SegmentoFisico segmentoFisico) {
+        final List<TiempoBusEnSegmento> tiempos = tiempoBusEnSegmentoRepository.findBySegmentoFisico(segmentoFisico);
+        final int n = tiempos.size();
+        double denominador = n * (n + 1) / 2.0;
+        long i = 1;
+        double eta = 0;
+        for (TiempoBusEnSegmento t : tiempos.stream().sorted(Comparator.comparing(TiempoBusEnSegmento::getInicio)).collect(Collectors.toList())) {
+            eta += (double) (i * t.getDuracion());
+            i++;
+        }
+        return eta / denominador;
     }
 }

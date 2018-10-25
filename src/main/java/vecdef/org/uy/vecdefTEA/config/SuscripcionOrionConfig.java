@@ -17,8 +17,8 @@ public class SuscripcionOrionConfig {
 
     private static final Logger LOG = LoggerFactory.getLogger(SuscripcionOrionConfig.class);
 
-    private static final String URL_SUSCRIPCION = "http://192.168.1.22:1026/v2/subscriptions";
-    private static final String URL_CALLBACK = "http://192.168.1.21:8080/bus_evento";
+    private static final String URL_SUSCRIPCION = "http://192.168.61.142:1026/v2/subscriptions";
+    private static final String URL_CALLBACK = "http://192.168.61.213:8080/bus_evento";
 
     private final RestTemplate restTemplate;
 

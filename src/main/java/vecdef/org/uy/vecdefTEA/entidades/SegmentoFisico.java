@@ -18,6 +18,10 @@ public class SegmentoFisico {
 
     private double eta;
 
+    private double etaPonderado;
+
+    private long lecturas;
+
     public ParadaFisica getParadaInicial() {
         return paradaInicial;
     }
@@ -48,6 +52,22 @@ public class SegmentoFisico {
 
     public void setEta(final double eta) {
         this.eta = eta;
+    }
+
+    public double getEtaPonderado() {
+        return etaPonderado;
+    }
+
+    public void setEtaPonderado(final double etaPonderado) {
+        this.etaPonderado = etaPonderado;
+    }
+
+    public long getLecturas() {
+        return lecturas;
+    }
+
+    public void setLecturas(final long lecturas) {
+        this.lecturas = lecturas;
     }
 
     public static String construirID(final ParadaFisica paradaInicial, final ParadaFisica paradaFinal) {

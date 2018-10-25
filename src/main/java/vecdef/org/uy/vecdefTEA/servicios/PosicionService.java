@@ -87,6 +87,7 @@ public class PosicionService {
     }
 
     public TEAResponse calcularTEAAParada(final ParadaLinea paradaLinea) {
+        //TODO ver de cambiar para la base
         final List<ParadaLinea> paradasPrevias = paradaRepository.findByLineaOrderByOrdinal(paradaLinea.getLinea())
                 .stream().filter(p -> p.getOrdinal() <= paradaLinea.getOrdinal())
                 .sorted((p1, p2) -> Long.compare(p2.getOrdinal(), p1.getOrdinal())).collect(Collectors.toList());
