@@ -13,6 +13,8 @@ import vecdef.org.uy.vecdefTEA.repository.SegmentoFisicoRepository;
 import vecdef.org.uy.vecdefTEA.repository.TiempoBusEnSegmentoRepository;
 
 import java.time.Duration;
+import java.util.List;
+import java.util.function.DoubleBinaryOperator;
 
 @Service
 public class HistoricoBusService {
@@ -24,6 +26,9 @@ public class HistoricoBusService {
 
     @Autowired
     private BusRepository busRepository;
+
+    @Autowired
+    private SegmentoFisicoRepository segmentoFisicoRepository;
 
     @Autowired
     private TiempoBusEnSegmentoRepository tiempoBusEnSegmentoRepository;
@@ -50,9 +55,11 @@ public class HistoricoBusService {
                     tiempoBusEnSegmento.setBus(bus);
                     tiempoBusEnSegmento.setInicio(bus.getTimestampSegmento());
                     tiempoBusEnSegmento.setFin((busPosicionDTO.getTimestamp()));
-                    tiempoBusEnSegmento.setDuracion(Duration.between(tiempoBusEnSegmento.getFin(), tiempoBusEnSegmento.getInicio()).getSeconds());
+                    tiempoBusEnSegmento.setDuracion(Duration.between(tiempoBusEnSegmento.getInicio(), tiempoBusEnSegmento.getFin()).getSeconds());
                     tiempoBusEnSegmento.setSegmentoFisico(segmentoActual);
                     tiempoBusEnSegmentoRepository.save(tiempoBusEnSegmento);
+                    segmentoActual.setEta(obtenerTiempoEstimadoDeSegmento(segmentoActual));
+                    segmentoFisicoRepository.save(segmentoActual);
                 }
 
                 bus.setTimestampSegmento(busPosicionDTO.getTimestamp());
@@ -63,5 +70,10 @@ public class HistoricoBusService {
             LOG.info("Guardando: " + bus);
             busRepository.save(bus);
         }
+    }
+
+    public double obtenerTiempoEstimadoDeSegmento(final SegmentoFisico segmentoFisico) {
+        final List<TiempoBusEnSegmento> tiempos = tiempoBusEnSegmentoRepository.findBySegmentoFisico(segmentoFisico);
+        return tiempos.stream().mapToDouble(TiempoBusEnSegmento::getDuracion).average().orElse(Double.MAX_VALUE);
     }
 }

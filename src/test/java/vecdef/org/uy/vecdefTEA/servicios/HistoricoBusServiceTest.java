@@ -31,6 +31,9 @@ public class HistoricoBusServiceTest {
     @Mock
     private PosicionService posicionService;
 
+    @Mock
+    private SegmentoFisicoRepository segmentoFisicoRepository;
+
     @Spy
     private BusRepository busRepository;
 
@@ -83,7 +86,7 @@ public class HistoricoBusServiceTest {
         final ArgumentCaptor<Bus> busPosicionCaptor = ArgumentCaptor.forClass(Bus.class);
 
 
-        Mockito.verify(busRepository, Mockito.times(2)).save(busPosicionCaptor.capture());
+        Mockito.verify(busRepository).save(busPosicionCaptor.capture());
         final Bus bus = busPosicionCaptor.getValue();
 
         Assert.assertEquals(bus.getLatitud(), busPosicionDTO.getLatitud(), 0.00001);

@@ -16,6 +16,8 @@ public class SegmentoFisico {
     @ManyToOne
     private ParadaFisica paradaFinal;
 
+    private double eta;
+
     public ParadaFisica getParadaInicial() {
         return paradaInicial;
     }
@@ -38,6 +40,14 @@ public class SegmentoFisico {
 
     public void setId(final String id) {
         this.idSegmento = id;
+    }
+
+    public double getEta() {
+        return eta;
+    }
+
+    public void setEta(final double eta) {
+        this.eta = eta;
     }
 
     public static String construirID(final ParadaFisica paradaInicial, final ParadaFisica paradaFinal) {
