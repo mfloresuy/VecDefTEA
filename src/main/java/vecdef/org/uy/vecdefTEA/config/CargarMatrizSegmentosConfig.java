@@ -30,7 +30,7 @@ import java.util.Spliterators;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-@Component
+//@Component
 public class CargarMatrizSegmentosConfig {
 
     private static final Logger LOG = LoggerFactory.getLogger(CargarMatrizSegmentosConfig.class);
