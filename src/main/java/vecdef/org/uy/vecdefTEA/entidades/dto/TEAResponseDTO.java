@@ -1,6 +1,6 @@
 package vecdef.org.uy.vecdefTEA.entidades.dto;
 
-public class TEAResponse {
+public class TEAResponseDTO {
 
     private Long idLinea;
     private Long idParada;
@@ -34,20 +34,12 @@ public class TEAResponse {
         this.idBus = idBus;
     }
 
-    public double getLatitud() {
-        return latitud;
+    public LocationDTO getLocation() {
+        return location;
     }
 
-    public void setLatitud(final double latitud) {
-        this.latitud = latitud;
-    }
-
-    public double getLongitud() {
-        return longitud;
-    }
-
-    public void setLongitud(final double longitud) {
-        this.longitud = longitud;
+    public void setLocation(final LocationDTO location) {
+        this.location = location;
     }
 
     public long getTea() {

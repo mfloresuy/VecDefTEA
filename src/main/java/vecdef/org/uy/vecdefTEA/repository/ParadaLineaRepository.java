@@ -2,6 +2,7 @@ package vecdef.org.uy.vecdefTEA.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import vecdef.org.uy.vecdefTEA.entidades.ParadaFisica;
 import vecdef.org.uy.vecdefTEA.entidades.ParadaLinea;
 
 import java.util.List;
@@ -12,5 +13,7 @@ public interface ParadaLineaRepository extends JpaRepository<ParadaLinea, Long> 
 
     @Query(value = "SELECT DISTINCT linea FROM ParadaLinea ")
     List<Long> findAllLineas();
+
+    ParadaLinea findByParadaFisicaAndLinea(ParadaFisica paradaFisica, Long linea);
 
 }

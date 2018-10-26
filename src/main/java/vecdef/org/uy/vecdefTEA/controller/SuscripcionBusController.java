@@ -17,12 +17,12 @@ import java.time.format.DateTimeFormatter;
 
 
 @Path("bus_evento")
-public class SuscripcionBus {
+public class SuscripcionBusController {
 
     private HistoricoBusService historicoBusService;
 
     @Autowired
-    public SuscripcionBus(final HistoricoBusService historicoBusService) {
+    public SuscripcionBusController(final HistoricoBusService historicoBusService) {
         this.historicoBusService = historicoBusService;
     }
 

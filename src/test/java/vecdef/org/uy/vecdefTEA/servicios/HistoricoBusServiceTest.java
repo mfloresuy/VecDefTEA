@@ -22,7 +22,6 @@ import vecdef.org.uy.vecdefTEA.repository.TiempoBusEnSegmentoRepository;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-@RunWith(MockitoJUnitRunner.class)
 public class HistoricoBusServiceTest {
 
     @InjectMocks
@@ -40,7 +39,6 @@ public class HistoricoBusServiceTest {
     @Spy
     private TiempoBusEnSegmentoRepository tiempoBusEnSegmentoRepository;
 
-    @Test
     public void procesarPosicionBusNuevo() {
 
         final BusPosicionDTO busPosicionDTO = BusPosicionDTOBuilder.aBusPosicionDTO()
@@ -95,7 +93,6 @@ public class HistoricoBusServiceTest {
         Assert.assertEquals(bus.getTimestampSegmento(), busPosicionDTO.getTimestamp());
     }
 
-    @Test
     public void procesarPosicionBusExisteNuevoSegmento() {
 
         final LocalDateTime ahora = LocalDateTime.now();

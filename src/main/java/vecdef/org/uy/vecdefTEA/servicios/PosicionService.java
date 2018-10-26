@@ -10,7 +10,8 @@ import vecdef.org.uy.vecdefTEA.entidades.ParadaFisica;
 import vecdef.org.uy.vecdefTEA.entidades.ParadaLinea;
 import vecdef.org.uy.vecdefTEA.entidades.SegmentoFisico;
 import vecdef.org.uy.vecdefTEA.entidades.dto.BusPosicionDTO;
-import vecdef.org.uy.vecdefTEA.entidades.dto.TEAResponse;
+import vecdef.org.uy.vecdefTEA.entidades.dto.LocationDTO;
+import vecdef.org.uy.vecdefTEA.entidades.dto.TEAResponseDTO;
 import vecdef.org.uy.vecdefTEA.repository.BusRepository;
 import vecdef.org.uy.vecdefTEA.repository.ParadaLineaRepository;
 import vecdef.org.uy.vecdefTEA.repository.SegmentoFisicoRepository;
@@ -86,7 +87,7 @@ public class PosicionService {
         return null;
     }
 
-    public TEAResponse calcularTEAAParada(final ParadaLinea paradaLinea) {
+    public TEAResponseDTO calcularTEAAParada(final ParadaLinea paradaLinea) {
         //TODO ver de cambiar para la base
         final List<ParadaLinea> paradasPrevias = paradaRepository.findByLineaOrderByOrdinal(paradaLinea.getLinea())
                 .stream().filter(p -> p.getOrdinal() <= paradaLinea.getOrdinal())
@@ -104,11 +105,13 @@ public class PosicionService {
             segmentoFisicoRepository.findById(idSegmento).ifPresent(segmentoFisicos::add);
         }
 
-        final TEAResponse teaResponse = new TEAResponse();
+        final TEAResponseDTO teaResponse = new TEAResponseDTO();
         estaElOmnibus.ifPresent(bus -> {
+            final double [] latlong = new double[]{bus.getLatitud(), bus.getLongitud()};
+            final LocationDTO location = new LocationDTO();
+            location.setCoordinates(latlong);
             teaResponse.setIdBus(bus.getId());
-            teaResponse.setLatitud(bus.getLatitud());
-            teaResponse.setLongitud(bus.getLongitud());
+            teaResponse.setLocation(location);
             teaResponse.setTea((long) segmentoFisicos.stream()
                     .mapToDouble(historicoBusService::obtenerTiempoEstimadoDeSegmento).sum());
         });
