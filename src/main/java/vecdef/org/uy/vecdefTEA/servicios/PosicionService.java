@@ -113,6 +113,8 @@ public class PosicionService {
             teaResponse.setIdBus(bus.getId());
             teaResponse.setLocation(location);
             teaResponse.setTea((long) segmentoFisicos.stream()
+                    .mapToDouble(historicoBusService::obtenerTiempoPonderadoEstimadoDeSegmento).sum());
+            teaResponse.setTeaP((long) segmentoFisicos.stream()
                     .mapToDouble(historicoBusService::obtenerTiempoEstimadoDeSegmento).sum());
         });
 

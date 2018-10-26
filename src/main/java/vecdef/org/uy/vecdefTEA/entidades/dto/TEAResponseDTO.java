@@ -9,6 +9,7 @@ public class TEAResponseDTO {
     private LocationDTO location;
 
     private long tea;
+    private long teaP;
 
     public Long getIdLinea() {
         return idLinea;
@@ -49,4 +50,14 @@ public class TEAResponseDTO {
     public void setTea(final long tea) {
         this.tea = tea;
     }
+
+    public long getTeaP() {
+        return teaP;
+    }
+
+    public void setTeaP(final long teaP) {
+        this.teaP = teaP;
+    }
+
 }
+
