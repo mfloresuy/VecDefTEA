@@ -13,11 +13,8 @@ import vecdef.org.uy.vecdefTEA.repository.SegmentoFisicoRepository;
 import vecdef.org.uy.vecdefTEA.repository.TiempoBusEnSegmentoRepository;
 
 import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
-import java.util.function.DoubleBinaryOperator;
 import java.util.stream.Collectors;
 
 @Service
@@ -74,8 +71,10 @@ public class HistoricoBusService {
 
             }
 
-            LOG.info("Guardando: " + bus);
-            busRepository.save(bus);
+            synchronized (this) {
+                LOG.info("Guardando: " + bus);
+                busRepository.save(bus);
+            }
         }
     }
 
@@ -96,4 +95,5 @@ public class HistoricoBusService {
         }
         return eta / denominador;
     }
+
 }

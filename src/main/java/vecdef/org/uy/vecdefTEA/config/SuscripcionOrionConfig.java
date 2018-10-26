@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -17,8 +18,8 @@ public class SuscripcionOrionConfig {
 
     private static final Logger LOG = LoggerFactory.getLogger(SuscripcionOrionConfig.class);
 
-    private static final String URL_SUSCRIPCION = "http://192.168.61.142:1026/v2/subscriptions";
-    private static final String URL_CALLBACK = "http://192.168.61.213:8080/bus_evento";
+    private static String URL_SUSCRIPCION = System.getenv("ORION_URL");
+    private static String URL_CALLBACK = System.getenv("ORION_CALLBACK_URL");
 
     private final RestTemplate restTemplate;
 
