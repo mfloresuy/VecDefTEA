@@ -6,8 +6,7 @@ public class TEAResponse {
     private Long idParada;
     private Long idBus;
 
-    private double latitud;
-    private double longitud;
+    private LocationDTO location;
 
     private long tea;
 
